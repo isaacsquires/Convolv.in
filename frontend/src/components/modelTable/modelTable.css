@@ -1,0 +1,11 @@
+.addLayer :hover {
+  cursor: pointer;
+  /* height: 250px; */
+}
+
+.addLayer {
+  height: 80px !important;
+  width: 80px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
