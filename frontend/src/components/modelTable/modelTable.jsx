@@ -45,8 +45,8 @@ const ModelTable = (props) => {
 
     const listItems = Object.keys(state.layers).map((key, i) => (
         // console.log(state.layers[key])
-        <div className='row p-4'>
-        <div className='col-3'>
+        <div className='row p-4 g-0'>
+        <div className='col-sm-12 col-md-3'>
         <p class="font-monospace">Layer: {key}</p> 
         <p class="font-monospace">Type: <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,20 +59,20 @@ const ModelTable = (props) => {
             </div>
             </p> 
         </div>
-        <div className='col-3'>
-        <div class="input-group">
+        <div className='col-md-3 col-sm-12'>
+        <div class="input-group p-4">
             <span class="input-group-text" id="basic-addon1">k</span>
             <input type="text" class="form-control" id={key} placeholder={state.layers[key]['k']} aria-label="kernel" aria-describedby="basic-addon1" onChange={updateK}/>
         </div>
         </div>
-        <div className='col-3'>
-        <div class="input-group">
+        <div className='col-md-3 col-sm-12'>
+        <div class="input-group p-4">
             <span class="input-group-text" id="basic-addon1">p</span>
             <input type="text" class="form-control" id={key} placeholder={state.layers[key]['p']} aria-label="kernel" aria-describedby="basic-addon1" onChange={updateP}/>
         </div>
         </div>
-        <div className='col-3'>
-        <div class="input-group">
+        <div className='col-md-3 col-sm-12'>
+        <div class="input-group p-4">
             <span class="input-group-text" id="basic-addon1">s</span>
             <input type="text" class="form-control" id={key} placeholder={state.layers[key]['s']} aria-label="kernel" aria-describedby="basic-addon1" onChange={updateS}/>
         </div>
@@ -82,28 +82,29 @@ const ModelTable = (props) => {
 
     return (
         <>
-        <div className="row p-4">
-        <div className='col-4 offset-4'>
+        <div className="row p-4 g-0">
+        <div className='col-sm-12 col-md-4 offset-md-4'>
         <div class="input-group">
             <span class="input-group-text" id="basic-addon1">Input</span>
             <input type="text" class="form-control" placeholder={state.inputSize} aria-label="kernel" aria-describedby="basic-addon1" onChange={updateInput}/>
         </div>
         </div>
         </div>
-        <div className="row p-4">
-        <div className='offset-4 col-4 text-center'>
+        <div className="row p-4 g-0">
+        <div className='col-sm-12 offset-md-4 col-md-4 text-center'>
             {/* <input type="text" class="form-control" placeholder={state.outputSize} aria-label="kernel" aria-describedby="basic-addon1" /> */}
             <h1 class="display-6">Output: </h1>
             </div>
             </div>
-        <div className="row">
-            <div className='offset-4 col-4 text-center'>
+        <div className="row g-0">
+            <div className='col-sm-12 offset-md-4 col-md-4 text-center'>
             <h1 class="display-4">{state.outputSize} </h1>
             {/* <button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick={calculateOutput}>Calculate</button> */}
+            <hr></hr>
         </div>
         </div>
         {listItems}
-        <div className="row p-4">
+        <div className="row p-4 g-0">
         <div className="offset-4 col-4">
             <AddCircleIcon className='addLayer' onClick={addLayer}/>
         </div>
