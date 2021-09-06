@@ -3,14 +3,15 @@ import Reducer from './Reducer'
 
 const initialState = {
     "inputSize": 64,
-    layers: {
-        "0": {
+    layers: [
+        {
+            "label": Math.random(),
             "k": 4,
             "p": 2,
             "s": 2,
-            "type": "conv2d"
-        }
-    },
+            "type": "conv2d",
+        },
+    ],
     error: null
 };
 

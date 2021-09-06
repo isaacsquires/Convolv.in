@@ -9,3 +9,25 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.layerShow {
+  opacity: 0%;
+}
+
+.layerInfo:hover .layerShow {
+  opacity: 100%;
+}
+
+.deleteLayer {
+  height: 40px !important;
+  width: 40px !important;
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: rgba(145, 82, 82, 0.658);
+}
+
+.deleteLayer :hover {
+  cursor: pointer;
+  /* height: 250px; */
+}
