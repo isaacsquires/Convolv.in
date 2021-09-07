@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import {Context} from '../../Store'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
+import CloseIcon from '@material-ui/icons/Close';
 import './modelTable.css'
 
 const ModelTable = (props) => {
@@ -63,11 +63,13 @@ const ModelTable = (props) => {
 
     const listItems = Object.keys(state.layers).map((key, i) => (
         <div className='row p-4 g-0 layerInfo'>
-        <div className='col-sm-1 col-md-1 layerShow text-center'>
-            <IndeterminateCheckBoxIcon className='deleteLayer' onClick={() => deleteLayer(i)}/>
-        </div>
-        <div className='col-sm-12 col-md-2'>
+        <div className='col-sm-12 offset-md-1 col-md-2'>
         <p class="font-monospace">Layer: {key}</p> 
+        <div className='row'>
+        <div className='offset-1 col-2'>
+        <CloseIcon className='deleteLayer hidden-delete' onClick={() => deleteLayer(i)}/>
+        </div>
+        <div className='col-6'>
         <p class="font-monospace">Type: <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 {state.layers[key]['type']}
@@ -78,6 +80,9 @@ const ModelTable = (props) => {
             </ul>
             </div>
             </p> 
+        </div>
+        </div>
+        
         </div>
         <div className='col-md-2 col-sm-12'>
         <div class="input-group p-4">
