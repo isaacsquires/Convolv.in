@@ -10,6 +10,16 @@ const ModelTable = (props) => {
     
     useEffect(() => {dispatch({type: "UPDATE_OUTPUT"})}, []);
     useEffect(() => {
+        const persistState = localStorage.getItem('data');
+        if (persistState) {
+            try {
+                dispatch({type: "LOAD_STATE", payload: JSON.parse(persistState)})
+            } catch (e) {
+              // is not json
+            }
+          }
+    }, []);
+    useEffect(() => {
         localStorage.setItem("data", JSON.stringify(state));
       }, [state]);
 

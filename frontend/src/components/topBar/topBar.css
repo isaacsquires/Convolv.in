@@ -1,0 +1,26 @@
+.load-button {
+  height: 50px !important;
+  width: 50px !important;
+  color: gray;
+}
+
+.load-button:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.invisible {
+  display: none;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.load-button:hover + .hide {
+  opacity: 1;
+}
+
+.load-container:hover .hide {
+  opacity: 1;
+}

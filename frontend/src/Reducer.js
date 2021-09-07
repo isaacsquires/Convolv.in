@@ -77,7 +77,9 @@ const Reducer = (state, action) => {
             return {
                 ...state,
             };
-        case 'UPDATE':
+        case 'LOAD_STATE':
+            console.log(action.payload)
+            state = action.payload
             return {
                 ...state,
             };
