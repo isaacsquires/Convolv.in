@@ -122,6 +122,11 @@ const ModelTable = (props) => {
         </div>
         </div>
         </div>
+        <div className="row p-4 g-0 show-mobile">
+        <div className='col-sm-12 col-md-4 offset-md-4'>
+            <p>Output: {state.outputSize}</p>
+        </div>
+        </div>
         {listItems}
         <div className="row p-4 g-0">
         <div className="offset-4 col-4">

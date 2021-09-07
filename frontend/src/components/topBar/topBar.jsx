@@ -20,28 +20,27 @@ class TopBar extends Component{
         return(
             <>
             <div className='row g-0'>
-                <div className='col-md-1'>
-                <div className="container pt-4 ps-4">
+                <div className='col-md-1 col-sm-12'>
+                <div className="container pt-4 ps-4 npl-mobile hide-mobile">
                     <div className='pt-4'>
-                        
                         <GetAppIcon className='load-button' onClick={this.saveState}/>
                         <p className='hide mb-0'>Save</p>
                         </div>
                     </div>
                 </div>
-                <div className='col-md-1 load-container'>
-                <div className="container pt-4 ps-0">
+                <div className='col-md-1 col-sm-12 load-container'>
+                <div className="container pt-4 ps-0 npt-mobile hide-mobile">
                     <Upload />
                     </div>
                 </div>
-                <div className='offset-md-1 col-md-6'>
+                <div className='offset-md-1 col-md-6 offset-sm-1 col-sm-10'>
                     <h1 className='display-3 p-4'>
                     Convolv.<small class="ps-2 text-muted">in</small>
                     </h1>
                 </div>
-                <div className='offset-md-2 col-md-1'>
-                    <div className="container p-4 d-flex">
-                        <div className='p-4'>
+                <div className='offset-md-2 col-md-1 col-sm-12'>
+                    <div className="container p-4 npt-mobile">
+                        <div className='p-4 npt-mobile'>
                         <HelpModal />
                         </div>
                     </div>

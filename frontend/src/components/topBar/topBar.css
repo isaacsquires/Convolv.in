@@ -24,3 +24,25 @@
 .load-container:hover .hide {
   opacity: 1;
 }
+
+.show-mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .npl-mobile {
+    padding-left: 0 !important;
+  }
+
+  .npt-mobile {
+    padding-top: 0.5rem !important;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+
+  .show-mobile {
+    display: block;
+  }
+}
