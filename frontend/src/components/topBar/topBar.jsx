@@ -36,8 +36,7 @@ class TopBar extends Component{
                 </div>
                 <div className='offset-md-1 col-md-6'>
                     <h1 className='display-3 p-4'>
-                    Conv
-                    <small class="text-muted">Calc</small>
+                    Convolv.<small class="ps-2 text-muted">in</small>
                     </h1>
                 </div>
                 <div className='offset-md-2 col-md-1'>
