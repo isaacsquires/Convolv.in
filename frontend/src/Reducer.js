@@ -1,5 +1,5 @@
 const calculateOutput = (state) => {
-    var H_o = state.inputSize
+    var H_o = state.input.size
     for(const [key , value] of Object.entries(state.layers)){
         if(value['type']==='conv2d'){
         H_o = (H_o+2*value['p']-value['k'])/value['s']+1
@@ -28,10 +28,10 @@ const Reducer = (state, action) => {
     switch (action.type) {
         case 'ADD_LAYER':
             var newLayer = {
-                'label': Math.random(),
                 'k': 4,
                 'p': 2,
                 's': 2,
+                'channels':3,
                 'type': 'conv2d'
             }
             var layers = state.layers.concat(newLayer)
@@ -52,11 +52,16 @@ const Reducer = (state, action) => {
             return {
                 ...state
             };
-            case 'UPDATE_INPUT':
-                return {
-                    ...state,
-                    inputSize: action.payload.inputSize
-                };
+        case 'UPDATE_INPUT':
+            state.input.size = action.payload.inputSize
+            return {
+                ...state,
+            };
+        case 'UPDATE_INPUT_CHANNELS':
+            state.input.channels = action.payload.channels
+            return {
+                ...state,
+            };
         case 'UPDATE_K':
             state.layers[action.payload.layer].k = action.payload.k
             return {
@@ -77,8 +82,17 @@ const Reducer = (state, action) => {
             return {
                 ...state,
             };
+        case 'UPDATE_CHANNELS':
+            state.layers[action.payload.layer].channels = action.payload.channels
+            return {
+                ...state,
+            };
+        case 'UPDATE_CHANNELS_SWITCH':
+            state.channelsSwitch = action.payload.to
+            return {
+                ...state,
+            };
         case 'LOAD_STATE':
-            console.log(action.payload)
             state = action.payload
             return {
                 ...state,

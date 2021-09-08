@@ -2,13 +2,18 @@ import React, {createContext, useReducer} from "react";
 import Reducer from './Reducer'
 
 const initialState = {
-    "inputSize": 64,
+    'channelsSwitch': false,
+    input: {
+        size: 64,
+        channels: 3,
+    },
     layers: [
         {
             "label": Math.random(),
             "k": 4,
             "p": 2,
             "s": 2,
+            'channels': 3,
             "type": "conv2d",
         },
     ],
