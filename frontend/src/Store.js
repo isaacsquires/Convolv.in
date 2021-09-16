@@ -13,6 +13,7 @@ const initialState = {
             "k": 4,
             "p": 2,
             "s": 2,
+            'sf': 0,
             'channels': 3,
             "type": "conv2d",
         },

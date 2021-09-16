@@ -29,7 +29,6 @@ const ModelTable = (props) => {
     }
 
     const deleteLayer = (index) => {
-        console.log(index)
         dispatch({type: 'DELETE_LAYER', payload: {'index': index}});
         dispatch({type: "UPDATE_OUTPUT"})
     }
@@ -54,6 +53,11 @@ const ModelTable = (props) => {
         dispatch({type: "UPDATE_OUTPUT"})
     }
 
+    const updateSF = (key, e) => {
+        dispatch({type: 'UPDATE_SF', payload: {"layer": key, "sf": Number(e.target.value)}});
+        dispatch({type: "UPDATE_OUTPUT"})
+    }
+
     const updateType = (key, e) => {
         dispatch({type: 'UPDATE_TYPE', payload: {"layer": key, "type": e.target.innerHTML}});
         dispatch({type: "UPDATE_OUTPUT"})
@@ -71,7 +75,6 @@ const ModelTable = (props) => {
     }
 
     const updateChannelsSwitch = (e) => {
-        console.log(e.target.checked)
         dispatch({type: 'UPDATE_CHANNELS_SWITCH', payload: {"to": e.target.checked}});
         dispatch({type: "UPDATE_OUTPUT"})
     }
@@ -82,30 +85,29 @@ const ModelTable = (props) => {
     let layersOutput;
     let finalOutput;
     if (channelSwitch){
+    channelsLayers = (key) =>
+    <div className='col-md-1 col-sm-12'>
+            <div class="input-group p-4">
+                <span class="input-group-text" id="basic-addon1">c</span>
+                <input type="text" class="form-control" value={state.layers[key]['channels']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateChannels(key, e)}/>
+            </div>
+            </div>
 
-        channelsLayers = (key) =>
-        <div className='col-md-1 col-sm-12'>
-                <div class="input-group p-4">
-                    <span class="input-group-text" id="basic-addon1">c</span>
-                    <input type="text" class="form-control" value={state.layers[key]['channels']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateChannels(key, e)}/>
-                </div>
-                </div>
+    channelsInput = 
+    <div class="input-group ps-1">
+        <span class="input-group-text" id="basic-addon1">c</span>
+        <input type="text" class="form-control" value={state.input.channels} aria-label="kernel" aria-describedby="basic-addon1" onChange={updateInputChannels}/>
+    </div>
 
-        channelsInput = 
-        <div class="input-group ps-1">
-            <span class="input-group-text" id="basic-addon1">c</span>
-            <input type="text" class="form-control" value={state.input.channels} aria-label="kernel" aria-describedby="basic-addon1" onChange={updateInputChannels}/>
-        </div>
+    layersOutput = (output, outputChannels) => {
+        return(
+        <p class="font-monospace ">Output size: {outputChannels},{output},{output}</p>)
+    }
 
-        layersOutput = (output, outputChannels) => {
-            return(
-            <p class="font-monospace ">Output size: {outputChannels},{output},{output}</p>)
-        }
-
-        finalOutput = (output, outputChannels) => {
-            return(
-                <h1 class="display-6 pb-4" >{outputChannels}, {output}, {output}</h1>)
-        }
+    finalOutput = (output, outputChannels) => {
+        return(
+            <h1 class="display-6 pb-4" >{outputChannels}, {output}, {output}</h1>)
+    }
     }
     else{
         channelsLayers = () => <></>
@@ -123,7 +125,46 @@ const ModelTable = (props) => {
         channelsInput = <></>
     }
 
-    
+    const  inputBoxes = (state, key) => {
+        if (state.layers[key]['type']==='conv2d' | state.layers[key]['type']==='convTranspose2d'){
+        return(
+        <>
+            <div className='col-md-2 col-sm-12'>
+            <div class="input-group p-4">
+                <span class="input-group-text" id="basic-addon1">k</span>
+                <input type="text" class="form-control" value={state.layers[key]['k']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateK(key, e)}/>
+            </div>
+            </div>
+            <div className='col-md-2 col-sm-12'>
+            <div class="input-group p-4">
+                <span class="input-group-text" id="basic-addon1">p</span>
+                <input type="text" class="form-control" value={state.layers[key]['p']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateP(key, e)}/>
+            </div>
+            </div>
+            <div className='col-md-2 col-sm-12'>
+            <div class="input-group p-4">
+                <span class="input-group-text" id="basic-addon1">s</span>
+                <input type="text" class="form-control" value={state.layers[key]['s']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateS(key, e)}/>
+            </div>
+            </div>
+        </>
+        )
+        }
+        else if (state.layers[key]['type']==='upsample'){
+            return(
+            <>
+                <div className='col-md-2 col-sm-12'>
+                <div class="input-group p-4">
+                    <span class="input-group-text" id="basic-addon1">sf</span>
+                    <input type="text" class="form-control" value={state.layers[key]['sf']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateSF(key, e)}/>
+                </div>
+                </div>
+                <div className='col-md-4'>
+                </div>
+            </>
+            )
+        }
+    }
 
     const listItems = Object.keys(state.layers).map((key, i) => (
         <div className='row p-4 g-0 layerInfo'>
@@ -141,31 +182,14 @@ const ModelTable = (props) => {
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><button class="dropdown-item" onClick={(e) => updateType(key, e)}>conv2d</button></li>
                 <li><button class="dropdown-item" onClick={(e) => updateType(key, e)}>convTranspose2d</button></li>
+                <li><button class="dropdown-item" onClick={(e) => updateType(key, e)}>upsample</button></li>
             </ul>
             </div>
             </p> 
         </div>
         </div>
-        
         </div>
-        <div className='col-md-2 col-sm-12'>
-        <div class="input-group p-4">
-            <span class="input-group-text" id="basic-addon1">k</span>
-            <input type="text" class="form-control" value={state.layers[key]['k']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateK(key, e)}/>
-        </div>
-        </div>
-        <div className='col-md-2 col-sm-12'>
-        <div class="input-group p-4">
-            <span class="input-group-text" id="basic-addon1">p</span>
-            <input type="text" class="form-control" value={state.layers[key]['p']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateP(key, e)}/>
-        </div>
-        </div>
-        <div className='col-md-2 col-sm-12'>
-        <div class="input-group p-4">
-            <span class="input-group-text" id="basic-addon1">s</span>
-            <input type="text" class="form-control" value={state.layers[key]['s']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateS(key, e)}/>
-        </div>
-        </div>
+        {inputBoxes(state, key)}
         {channelsLayers(key)}
         <div className='col-md-2 col-sm-12'>
         <div className="container p-4 d-flex h-100">

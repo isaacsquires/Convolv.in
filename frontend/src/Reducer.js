@@ -7,6 +7,9 @@ const calculateOutput = (state) => {
         else if(value['type']==='convTranspose2d'){
             H_o = (H_o-1)*value['s']-2*value['p']+value['k']
         }
+        else if(value['type']==='upsample'){
+            H_o = (H_o)*value['sf']
+        }
         state.layers[key].outputSize = H_o
     }
     state = {
@@ -31,6 +34,7 @@ const Reducer = (state, action) => {
                 'k': 4,
                 'p': 2,
                 's': 2,
+                'sf': 2,
                 'channels':3,
                 'type': 'conv2d'
             }
@@ -74,6 +78,11 @@ const Reducer = (state, action) => {
             };
         case 'UPDATE_S':
             state.layers[action.payload.layer].s = action.payload.s
+            return {
+                ...state,
+            };
+        case 'UPDATE_SF':
+            state.layers[action.payload.layer].sf = action.payload.sf
             return {
                 ...state,
             };
