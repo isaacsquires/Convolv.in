@@ -9,7 +9,6 @@ const initialState = {
     },
     layers: [
         {
-            "label": Math.random(),
             "k": 4,
             "p": 2,
             "s": 2,

@@ -63,6 +63,11 @@ const ModelTable = (props) => {
         dispatch({type: "UPDATE_OUTPUT"})
     }
 
+    const clearLayers = (key, e) => {
+        dispatch({type: 'CLEAR_LAYERS', payload: {}});
+        dispatch({type: "UPDATE_OUTPUT"})
+    }
+
     const updateChannels = (key, e) => {
         dispatch({type: 'UPDATE_CHANNELS', payload: {"layer": key, "channels": e.target.value}});
         dispatch({type: "UPDATE_OUTPUT"})
@@ -204,7 +209,10 @@ const ModelTable = (props) => {
     return (
         <>
         <div className="row p-4 g-0">
-        <div className='col-sm-12 col-md-4 offset-md-4'>
+        <div className='col-sm-12 col-md-4'>
+        <button type="button" onClick={clearLayers} class="btn btn-outline-secondary">Clear</button>
+            </div>
+        <div className='col-sm-12 col-md-4'>
         <div class="input-group">
             <span class="input-group-text" id="basic-addon1">Input</span>
             <input type="text" class="form-control" value={state.input.size} aria-label="kernel" aria-describedby="basic-addon1" onChange={updateInput}/>

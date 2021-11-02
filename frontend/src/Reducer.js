@@ -101,6 +101,18 @@ const Reducer = (state, action) => {
             return {
                 ...state,
             };
+        case 'CLEAR_LAYERS':
+            state.layers = [{
+                'k': 4,
+                'p': 2,
+                's': 2,
+                'sf': 2,
+                'channels':3,
+                'type': 'conv2d'
+            }]
+            return {
+                ...state,
+            };
         case 'LOAD_STATE':
             state = action.payload
             return {
