@@ -69,13 +69,27 @@ const ModelTable = (props) => {
     }
 
     const updateChannels = (key, e) => {
-        dispatch({type: 'UPDATE_CHANNELS', payload: {"layer": key, "channels": e.target.value}});
+        let channels
+        if (e.target.value==""){
+            channels = 0
+        }
+        else{
+            channels = Number(e.target.value)
+        }
+        dispatch({type: 'UPDATE_CHANNELS', payload: {"layer": key, "channels": channels}});
         dispatch({type: "UPDATE_OUTPUT"})
     }
     
 
-    const updateInputChannels = (e) => {
-        dispatch({type: 'UPDATE_TYPE', payload: {"channels": e.target.value}});
+    const updateInputChannel = (e) => {
+        let channels
+        if (e.target.value==""){
+            channels = 0
+        }
+        else{
+            channels = Number(e.target.value)
+        }
+        dispatch({type: 'UPDATE_INPUT_CHANNEL', payload: {"channels": channels}});
         dispatch({type: "UPDATE_OUTPUT"})
     }
 
@@ -101,7 +115,7 @@ const ModelTable = (props) => {
     channelsInput = 
     <div class="input-group ps-1">
         <span class="input-group-text" id="basic-addon1">c</span>
-        <input type="text" class="form-control" value={state.input.channels} aria-label="kernel" aria-describedby="basic-addon1" onChange={updateInputChannels}/>
+        <input type="text" class="form-control" value={state.input.channels} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateInputChannel(e)}/>
     </div>
 
     layersOutput = (output, outputChannels) => {

@@ -96,6 +96,11 @@ const Reducer = (state, action) => {
             return {
                 ...state,
             };
+        case 'UPDATE_INPUT_CHANNEL':
+            state.input.channels = action.payload.channels
+            return {
+                ...state,
+            };
         case 'UPDATE_CHANNELS_SWITCH':
             state.channelsSwitch = action.payload.to
             return {
