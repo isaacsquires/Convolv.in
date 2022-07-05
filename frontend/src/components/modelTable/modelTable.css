@@ -35,3 +35,12 @@
 .layerInfo:hover .hidden-delete {
   opacity: 1;
 }
+
+.dims-chan{
+  width: 236px
+}
+
+
+.top-panel{
+  margin-top: 10px;
+}
