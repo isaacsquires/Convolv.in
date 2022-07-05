@@ -99,7 +99,7 @@ const ModelTable = (props) => {
     }
 
     const updateDims = (e) => {
-        dispatch({type: 'UPDATE_DIMS', payload: {"dims": Number(e.target.innerHTML)}});
+        dispatch({type: 'UPDATE_DIMS', payload: {"dims": Number(e.target.value)}});
         dispatch({type: "UPDATE_OUTPUT"})
     }
 
@@ -150,7 +150,7 @@ const ModelTable = (props) => {
     }
 
     const  inputBoxes = (state, key) => {
-        if (state.layers[key]['type']==='conv2d' | state.layers[key]['type']==='convTranspose2d'){
+        if (state.layers[key]['type']==='conv' | state.layers[key]['type']==='convTranspose'){
         return(
         <>
             <div className='col-md-2 col-4'>
@@ -193,23 +193,22 @@ const ModelTable = (props) => {
     const listItems = Object.keys(state.layers).map((key, i) => (
         <div className='row p-4 g-0 layerInfo'>
         <div className='col-sm-12 col-md-2'>
-        <p class="font-monospace">Layer: {key}</p> 
         <div className='row'>
-        <div className='offset-1 col-2'>
-        <CloseIcon className='deleteLayer hidden-delete' onClick={() => deleteLayer(i)}/>
+        <p class="font-monospace">Layer: {key}</p> 
         </div>
-        <div className='col-6'>
-        <p class="font-monospace">Type: <div class="dropdown">
+        <div className='row'>
+        <div className='d-flex flex-row justify-content-center'>
+        <p class="font-monospace mt-auto mb-auto me-2">Type: </p> <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 {state.layers[key]['type']}
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><button class="dropdown-item" onClick={(e) => updateType(key, e)}>conv2d</button></li>
-                <li><button class="dropdown-item" onClick={(e) => updateType(key, e)}>convTranspose2d</button></li>
+                <li><button class="dropdown-item" onClick={(e) => updateType(key, e)}>conv</button></li>
+                <li><button class="dropdown-item" onClick={(e) => updateType(key, e)}>convTranspose</button></li>
                 <li><button class="dropdown-item" onClick={(e) => updateType(key, e)}>upsample</button></li>
             </ul>
             </div>
-            </p> 
+            
         </div>
         </div>
         </div>
@@ -221,6 +220,9 @@ const ModelTable = (props) => {
             {layersOutput(state.layers[key]['outputSize'], state.layers[key]['channels'])}
             </div>
         </div>
+        </div>
+        <div className='col-2'>
+        <CloseIcon className='deleteLayer hidden-delete' onClick={() => deleteLayer(i)}/>
         </div>
     </div>
     ))
@@ -243,20 +245,14 @@ const ModelTable = (props) => {
         </div>
         </div>
 
-        <div className='offset-0 col-12 offset-md-1 col-md-3'>
+        <div className='offset-2 col-6 offset-md-1 col-md-3'>
 
-        <div class="input-group mb-3 mx-auto dims-chan top-panel">
-        <span class="input-group-text" id="basic-addon2">Dims</span>
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-describedby="basic-addon2" aria-expanded="false">{state.input.dims}</button>
-        {console.log(state.input)}
-        <ul class="dropdown-menu">
-            <li><button class="dropdown-item" onClick={updateDims}>1</button></li>
-            <li><button class="dropdown-item" onClick={updateDims}>2</button></li>
-            <li><button class="dropdown-item" onClick={updateDims}>3</button></li>
-        </ul>
+        <div class="input-group mb-3 mx-auto top-panel">
+        <span class="top-panel-span">  <p className="top-panel-text">Dims</p>
+         <input type="number" step="1" max="10" min="1" value={state.input.dims} name="quantity" onChange={updateDims} class=" form-control dims me-4" />
 
-            <span class="input-group-text " id="basic-addon2">Channels
-        <input class="form-check-input mx-2 mt-0" type="checkbox" value={state.channelsSwitch} onChange={updateChannelsSwitch} aria-label="Checkbox for following text input"></input></span>
+            <p className="top-panel-text">Channels</p>
+        <input class="form-check-input mt-0 me-2" type="checkbox" value={state.channelsSwitch} onChange={updateChannelsSwitch} aria-label="Checkbox for following text input"></input></span>
         </div>
 
         </div>
