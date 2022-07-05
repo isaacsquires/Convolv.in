@@ -1,17 +1,26 @@
+import initialState from "./initialState"
+
 const calculateOutput = (state) => {
-    var H_o = state.input.size
+    var H_o = [...state.input.size]
     for(const [key , value] of Object.entries(state.layers)){
-        if(value['type']==='conv2d'){
-        H_o = (H_o+2*value['p']-value['k'])/value['s']+1
+            H_o.map((v, i) => {
+            if(value['type']==='conv2d'){
+            H_o[i] = (H_o[i]+2*value['p']-value['k'])/value['s']+1
+            }
+            else if(value['type']==='convTranspose2d'){
+                H_o[i] = (H_o[i]-1)*value['s']-2*value['p']+value['k']
+            }
+            else if(value['type']==='upsample'){
+                H_o[i] = (H_o[i])*value['sf']
+            }
+            return(
+                ""
+            )
         }
-        else if(value['type']==='convTranspose2d'){
-            H_o = (H_o-1)*value['s']-2*value['p']+value['k']
+        )
+        state.layers[key].outputSize = [...H_o]
         }
-        else if(value['type']==='upsample'){
-            H_o = (H_o)*value['sf']
-        }
-        state.layers[key].outputSize = H_o
-    }
+    
     state = {
         ...state,
         outputSize: H_o
@@ -57,7 +66,7 @@ const Reducer = (state, action) => {
                 ...state
             };
         case 'UPDATE_INPUT':
-            state.input.size = action.payload.inputSize
+            state.input.size[action.payload.index] = action.payload.inputSize
             return {
                 ...state,
             };
@@ -106,18 +115,16 @@ const Reducer = (state, action) => {
             return {
                 ...state,
             };
-        case 'CLEAR_LAYERS':
-            state.layers = [{
-                'k': 4,
-                'p': 2,
-                's': 2,
-                'sf': 2,
-                'channels':3,
-                'type': 'conv2d'
-            }]
+        case 'UPDATE_DIMS':
+            console.log(state.input)
+            state.input.dims = action.payload.dims
+            state.input.size = Array(action.payload.dims).fill(state.input.size[0])
+            console.log(state.input)
             return {
                 ...state,
             };
+        case 'CLEAR_LAYERS':
+            return initialState
         case 'LOAD_STATE':
             state = action.payload
             return {

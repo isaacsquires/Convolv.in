@@ -1,24 +1,6 @@
 import React, {createContext, useReducer} from "react";
 import Reducer from './Reducer'
-
-const initialState = {
-    'channelsSwitch': false,
-    input: {
-        size: 64,
-        channels: 3,
-    },
-    layers: [
-        {
-            "k": 4,
-            "p": 2,
-            "s": 2,
-            'sf': 0,
-            'channels': 3,
-            "type": "conv2d",
-        },
-    ],
-    error: null
-};
+import initialState from "./initialState";
 
 const Store = ({children}) => {
     const [state, dispatch] = useReducer(Reducer, initialState);

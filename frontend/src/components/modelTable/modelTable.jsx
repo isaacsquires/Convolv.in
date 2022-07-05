@@ -34,7 +34,7 @@ const ModelTable = (props) => {
     }
 
     const updateInput = (e) => {
-        dispatch({type: 'UPDATE_INPUT', payload: {"inputSize": Number(e.target.value)}});
+        dispatch({type: 'UPDATE_INPUT', payload: {"inputSize": Number(e.target.value), "index": e.target.id}});
         dispatch({type: "UPDATE_OUTPUT"})
     }
 
@@ -70,7 +70,7 @@ const ModelTable = (props) => {
 
     const updateChannels = (key, e) => {
         let channels
-        if (e.target.value==""){
+        if (e.target.value===""){
             channels = 0
         }
         else{
@@ -83,7 +83,7 @@ const ModelTable = (props) => {
 
     const updateInputChannel = (e) => {
         let channels
-        if (e.target.value==""){
+        if (e.target.value===""){
             channels = 0
         }
         else{
@@ -98,6 +98,11 @@ const ModelTable = (props) => {
         dispatch({type: "UPDATE_OUTPUT"})
     }
 
+    const updateDims = (e) => {
+        dispatch({type: 'UPDATE_DIMS', payload: {"dims": Number(e.target.innerHTML)}});
+        dispatch({type: "UPDATE_OUTPUT"})
+    }
+
     const channelSwitch = state.channelsSwitch;
     let channelsLayers;
     let channelsInput;
@@ -105,7 +110,7 @@ const ModelTable = (props) => {
     let finalOutput;
     if (channelSwitch){
     channelsLayers = (key) =>
-    <div className='col-md-1 col-sm-12'>
+    <div className='col-md-2 col-sm-10'>
             <div class="input-group p-4">
                 <span class="input-group-text" id="basic-addon1">c</span>
                 <input type="text" class="form-control" value={state.layers[key]['channels']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateChannels(key, e)}/>
@@ -120,25 +125,25 @@ const ModelTable = (props) => {
 
     layersOutput = (output, outputChannels) => {
         return(
-        <p class="font-monospace ">Output size: {outputChannels},{output},{output}</p>)
+        <p class="font-monospace ">Output size: {outputChannels},{output?.toString() || ""}</p>)
     }
 
     finalOutput = (output, outputChannels) => {
         return(
-            <h1 class="display-6 pb-4" >{outputChannels}, {output}, {output}</h1>)
+            <h1 class="display-6 pb-4" >{outputChannels}, {output?.toString() || ""}</h1>)
     }
     }
     else{
         channelsLayers = () => <></>
         layersOutput = (output) => {
             return(
-            <p class="font-monospace ">Output size: {output}</p>
+            <p class="font-monospace ">Output size: {output?.toString() || ""}</p>
             )
         }
 
         finalOutput = (output) => {
             return(
-                <h1 class="display-6 pb-4" >{output}</h1>)
+                <h1 class="display-6 pb-4" >{output?.toString() || ""}</h1>)
         }
 
         channelsInput = <></>
@@ -223,21 +228,38 @@ const ModelTable = (props) => {
     return (
         <>
         <div className="row p-4 g-0">
-        <div className='col-sm-12 col-md-4'>
+        <div className='col-sm-12 offset-md-2 col-md-2'>
         <button type="button" onClick={clearLayers} class="btn btn-outline-secondary">Clear</button>
             </div>
         <div className='col-sm-12 col-md-4'>
         <div class="input-group">
             <span class="input-group-text" id="basic-addon1">Input</span>
-            <input type="text" class="form-control" value={state.input.size} aria-label="kernel" aria-describedby="basic-addon1" onChange={updateInput}/>
+            {
+            [...Array(state.input.dims).keys()].map((key, i) => (
+                <input type="text" class="form-control" value={state.input.size[i]} id={i} aria-label="kernel" aria-describedby="basic-addon1" onChange={updateInput}/>
+            ))
+            }
+            
         </div>
         </div>
-        <div className='offset-4 col-2 offset-md-1 col-md-1 '>
-        <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="flexCheckDefault" onChange={updateChannelsSwitch} checked={state.channelsSwitch}/>
-        <label for="flexCheckDefault">Channels</label>
+        <div className='offset-1 col-10 offset-md-1 col-md-3'>
+
+        <div class="input-group mb-3 mx-0">
+        <span class="input-group-text" id="basic-addon2">Dims</span>
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-describedby="basic-addon2" aria-expanded="false">{state.input.dims}</button>
+        {console.log(state.input)}
+        <ul class="dropdown-menu">
+            <li><button class="dropdown-item" onClick={updateDims}>1</button></li>
+            <li><button class="dropdown-item" onClick={updateDims}>2</button></li>
+            <li><button class="dropdown-item" onClick={updateDims}>3</button></li>
+        </ul>
+
+            <span class="input-group-text" id="basic-addon2">Channels
+        <input class="form-check-input mx-2 mt-0" type="checkbox" value={state.channelsSwitch} onChange={updateChannelsSwitch} aria-label="Checkbox for following text input"></input></span>
         </div>
+
         </div>
+
         </div>
         <div className='row'>
         <div className='col-sm-12 col-md-2 offset-md-5'>
