@@ -29,8 +29,10 @@ const ModelTable = (props) => {
     }
 
     const deleteLayer = (index) => {
+        if (state.layers.length>1){
         dispatch({type: 'DELETE_LAYER', payload: {'index': index}});
         dispatch({type: "UPDATE_OUTPUT"})
+        }
     }
 
     const updateInput = (e) => {
