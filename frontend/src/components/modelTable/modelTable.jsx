@@ -153,19 +153,19 @@ const ModelTable = (props) => {
         if (state.layers[key]['type']==='conv2d' | state.layers[key]['type']==='convTranspose2d'){
         return(
         <>
-            <div className='col-md-2 col-sm-12'>
+            <div className='col-md-2 col-4'>
             <div class="input-group p-4">
                 <span class="input-group-text" id="basic-addon1">k</span>
                 <input type="text" class="form-control" value={state.layers[key]['k']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateK(key, e)}/>
             </div>
             </div>
-            <div className='col-md-2 col-sm-12'>
+            <div className='col-md-2 col-4'>
             <div class="input-group p-4">
                 <span class="input-group-text" id="basic-addon1">s</span>
                 <input type="text" class="form-control" value={state.layers[key]['s']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateS(key, e)}/>
             </div>
             </div>
-            <div className='col-md-2 col-sm-12'>
+            <div className='col-md-2 col-4'>
             <div class="input-group p-4">
                 <span class="input-group-text" id="basic-addon1">p</span>
                 <input type="text" class="form-control" value={state.layers[key]['p']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateP(key, e)}/>
@@ -229,10 +229,10 @@ const ModelTable = (props) => {
         <>
         <div className="row p-4 g-0">
         <div className='col-sm-12 offset-md-2 col-md-2'>
-        <button type="button" onClick={clearLayers} class="btn btn-outline-secondary">Clear</button>
+        <button type="button" onClick={clearLayers} class="btn btn-outline-secondary top-panel">Clear</button>
             </div>
         <div className='col-sm-12 col-md-4'>
-        <div class="input-group">
+        <div class="input-group top-panel">
             <span class="input-group-text" id="basic-addon1">Input</span>
             {
             [...Array(state.input.dims).keys()].map((key, i) => (
@@ -242,9 +242,10 @@ const ModelTable = (props) => {
             
         </div>
         </div>
-        <div className='offset-1 col-10 offset-md-1 col-md-3'>
 
-        <div class="input-group mb-3 mx-0">
+        <div className='offset-0 col-12 offset-md-1 col-md-3'>
+
+        <div class="input-group mb-3 mx-auto dims-chan top-panel">
         <span class="input-group-text" id="basic-addon2">Dims</span>
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-describedby="basic-addon2" aria-expanded="false">{state.input.dims}</button>
         {console.log(state.input)}
@@ -254,7 +255,7 @@ const ModelTable = (props) => {
             <li><button class="dropdown-item" onClick={updateDims}>3</button></li>
         </ul>
 
-            <span class="input-group-text" id="basic-addon2">Channels
+            <span class="input-group-text " id="basic-addon2">Channels
         <input class="form-check-input mx-2 mt-0" type="checkbox" value={state.channelsSwitch} onChange={updateChannelsSwitch} aria-label="Checkbox for following text input"></input></span>
         </div>
 
@@ -271,13 +272,13 @@ const ModelTable = (props) => {
         <hr></hr>
         </div>
         </div>
-        <div className="row p-4 g-0 show-mobile">
+        <div className="row p-2 g-0 show-mobile">
         <div className='col-sm-12 col-md-4 offset-md-4'>
-            <p>Output: {state.outputSize}</p>
+            <p>Output: {state.outputSize?.toString() || ""}</p>
         </div>
         </div>
         {listItems}
-        <div className="row p-4 g-0">
+        <div className="row p-2 g-0">
         <div className="offset-4 col-4">
             <AddCircleIcon className='addLayer' onClick={addLayer}/>
         </div>
