@@ -156,14 +156,14 @@ const ModelTable = (props) => {
             </div>
             <div className='col-md-2 col-sm-12'>
             <div class="input-group p-4">
-                <span class="input-group-text" id="basic-addon1">p</span>
-                <input type="text" class="form-control" value={state.layers[key]['p']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateP(key, e)}/>
+                <span class="input-group-text" id="basic-addon1">s</span>
+                <input type="text" class="form-control" value={state.layers[key]['s']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateS(key, e)}/>
             </div>
             </div>
             <div className='col-md-2 col-sm-12'>
             <div class="input-group p-4">
-                <span class="input-group-text" id="basic-addon1">s</span>
-                <input type="text" class="form-control" value={state.layers[key]['s']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateS(key, e)}/>
+                <span class="input-group-text" id="basic-addon1">p</span>
+                <input type="text" class="form-control" value={state.layers[key]['p']} aria-label="kernel" aria-describedby="basic-addon1" onChange={(e) => updateP(key, e)}/>
             </div>
             </div>
         </>
