@@ -12,7 +12,7 @@ const initialState = {
             "s": 2,
             'sf': 0,
             'channels': 3,
-            "type": "conv2d",
+            "type": "conv",
         },
     ],
     error: null

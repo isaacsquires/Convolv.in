@@ -4,10 +4,10 @@ const calculateOutput = (state) => {
     var H_o = [...state.input.size]
     for(const [key , value] of Object.entries(state.layers)){
             H_o.map((v, i) => {
-            if(value['type']==='conv2d'){
+            if(value['type']==='conv'){
             H_o[i] = (H_o[i]+2*value['p']-value['k'])/value['s']+1
             }
-            else if(value['type']==='convTranspose2d'){
+            else if(value['type']==='convTranspose'){
                 H_o[i] = (H_o[i]-1)*value['s']-2*value['p']+value['k']
             }
             else if(value['type']==='upsample'){
@@ -45,7 +45,7 @@ const Reducer = (state, action) => {
                 's': 2,
                 'sf': 2,
                 'channels':3,
-                'type': 'conv2d'
+                'type': 'conv'
             }
             var layers = state.layers.concat(newLayer)
             return {
