@@ -19,6 +19,15 @@ class HelpModal extends Component{
                     <p className='text-start'><b>Layers: </b>Layers are the building blocks of the network. You can change the type of the layer with the dropdown on the layer info panel on the left. You can also change the kernel size (k), stride (s) and padding (p). The first layer is passed the input, and the subsequent layers are passed the output from the layer before. The output size for each layer is displayed on the right. You can add layers with the (+) underneath the final layer, and remove layers by hovering over the layer and clicking the (x).</p>
                     <p className='text-start'><b>Output: </b>The output is the size of the image after passing through all of the convolutional layers.</p>
                     <p className='text-start'><b>Equations: </b>The output size of a convolution is calculated using the following equation</p>
+    
+                    <p className='text-eq'>`H_o = (H_i+2*p-k)/(s)+1`</p>
+                    
+                    <p className='text-start'>For a transposed convolution</p>
+
+                    <p className='text-eq'>`H_o = (H_i-1)*s-2*p+k`</p>
+
+                    <p className='text-start'>More of my projects <a href="https://isaacsquires.me">here</a></p>
+
                 </div>
                 </div>
             </div>
